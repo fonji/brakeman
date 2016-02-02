@@ -839,7 +839,7 @@ class Rails4Tests < Test::Unit::TestCase
   def test_cross_site_scripting_find_and_preserve_escape_coffeescript
     assert_no_warning :type => :template,
       :warning_code => 2,
-      :fingerprint => "d75b08fa4d1ef70aa2be54f4568b7486aaf91beae65c7adc1422d3582fdbf5b0",
+      :fingerprint => "7027ca0313a2ca480f871890936e5d72f035cb7c27d25a5bf01afa784a9db10f",
       :warning_type => "Cross Site Scripting",
       :line => 10,
       :message => /^Unescaped\ parameter\ value/,
