@@ -836,6 +836,18 @@ class Rails4Tests < Test::Unit::TestCase
       :user_input => s(:call, s(:call, nil, :params), :[], s(:lit, :id))
   end
 
+  def test_cross_site_scripting_find_and_preserve_escape_coffeescript
+    assert_no_warning :type => :template,
+      :warning_code => 2,
+      :fingerprint => "d75b08fa4d1ef70aa2be54f4568b7486aaf91beae65c7adc1422d3582fdbf5b0",
+      :warning_type => "Cross Site Scripting",
+      :line => 10,
+      :message => /^Unescaped\ parameter\ value/,
+      :confidence => 2,
+      :relative_path => "app/views/users/haml_test.html.haml",
+      :user_input => s(:call, s(:call, nil, :params), :[], s(:lit, :id))
+  end
+
   def test_cross_site_scripting_in_comparison_false_positive
     assert_no_warning :type => :template,
       :warning_code => 2,
@@ -1028,7 +1040,7 @@ class Rails4Tests < Test::Unit::TestCase
       :code => s(:call, s(:const, :User), :where, s(:dstr, "", s(:evstr, s(:call, s(:params), :permit, s(:lit, :OMG))))),
       :user_input => s(:call, s(:params), :permit, s(:lit, :OMG))
   end
- 
+
   def test_format_validation_model_alias_processing
     assert_warning :type => :model,
       :warning_code => 30,
